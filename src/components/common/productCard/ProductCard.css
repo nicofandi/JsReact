@@ -1,5 +1,5 @@
 .card {
-  display: flex;
+  display: wrap;
   flex-direction: column;
   align-items: center;
   border: 1px solid #dee2e6;
@@ -18,3 +18,4 @@
   height: auto; 
   margin-bottom: 1rem;
 }
+

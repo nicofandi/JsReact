@@ -1,8 +1,32 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const CounterContainer = () => {
-  const [nombre, setNombre] = useState(""); 
-  return <div>{}</div>;
+import CounterPresentacional from "./CounterPresentacional";
+
+export const CounterContainer = ({ stock, initial = 1, onAdd }) => {
+  const [contador, setContador] = useState(initial);
+
+  const sumar = () => {
+    if (contador < stock) {
+      setContador(contador + 1);
+    } else {
+      alert("maximo en stock");
+    }
+  };
+
+  const restar = () => {
+    if (contador > 1) {
+      setContador(contador - 1);
+    } else {
+      alert("no podes menos de 1");
+    }
+  };
+
+  let objectProps = {
+    restar,
+    sumar,
+    contador,
+    onAdd,
+  };
+
+  return <CounterPresentacional {...objectProps} />;
 };
-
-export default CounterContainer;

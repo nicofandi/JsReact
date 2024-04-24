@@ -1,14 +1,16 @@
 import React from "react";
 import "./Navbar.css";
 import { BiCart } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import CartWidget from "../../common/cartWidget/cartWidget";
 
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <Link to="/" className="navbar-brand" href="/">
           Todo Mascotas
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -22,35 +24,23 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Inicio
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Acerca de
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Productos
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Contacto
-              </a>
-            </li>
+            <Link to="/" className="nav-link">
+              Inicio
+            </Link>
+            <Link to="/category/Perros" className="nav-link">
+              Comida para perros
+            </Link>
+            <Link to="/category/Gatos" className="nav-link">
+              Comida para gatos
+            </Link>
           </ul>
         </div>
-        <div className="cart-widget">
-          <BiCart />
-          <span className="cart-item-count">3</span>
-        </div>
+        <BiCart />
+        <CartWidget />
+        <Link to="./cart">Ir al carrito</Link>
+        <span className="cart-item-count">0</span>
       </div>
     </nav>
   );
 };
-
-export default Navbar;
+export { Navbar };

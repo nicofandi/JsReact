@@ -1,38 +1,40 @@
-import ProductCard from "../../common/productCard/ProductCard";
-const ItemListContainer = ({ gretting }) => {
+import { useState } from "react";
+import { products } from "../../../productMock";
+import { useEffect } from "react";
+import { ItemList } from "./itemList";
+import { useParams, useNavigate } from "react-router-dom";
+
+const ItemListContainer = () => {
+  const navigate = useNavigate();
+  const { name } = useParams();
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    let productsFiltered = products.filter(
+      (product) => product.category === name
+    );
+
+    const getProducts = new Promise((resolve, reject) => {
+      let x = true;
+      if (x) {
+        resolve(name ? productsFiltered : products);
+      } else {
+        reject({ status: 400, message: "no estas autorizado" });
+      }
+    });
+
+    getProducts.then((res) => setItems(res)).catch((error) => setError(error));
+  }, [name]);
+
+  const agregarAlCarrito = (producto) => {
+    setCartItems([...cartItems, producto]);
+    navigate("/Cart");
+  };
+
   return (
-    <div>
-      <h1>{gretting}</h1>
-
-      {}
-
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          gap: "40px",
-          backgroundColor: "steelblue",
-        }}
-      >
-        <ProductCard
-          imagenUrl="https://res.cloudinary.com/dxyonwc26/image/upload/v1711679707/RAZA_mgueme.png"
-          precio={2400}
-          titulo={"Raza"}
-          descripcion={"Alimento para perros 6kg"}
-        />
-        <ProductCard
-          precio={3000}
-          titulo={"Eukanuba"}
-          descripcion={"Alimento para perros 5kg"}
-        />
-        <ProductCard
-          precio={2400}
-          titulo={"Dog chow"}
-          descripcion={"Alimento para perros 6,5kg"}
-        />
-      </div>
-    </div>
+    <ItemList items={items} error={error} agregarAlCarrito={agregarAlCarrito} />
   );
 };
 

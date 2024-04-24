@@ -1,8 +1,16 @@
+import React, { useState } from "react";
 import Cart from "./Cart";
 
 const CartContainer = () => {
-  let productosAgregados = [];
+  const [productosAgregados, setProductosAgregados] = useState([]);
+
+  const agregarAlCarrito = (producto) => {
+    setProductosAgregados([...productosAgregados, producto]);
+  };
+
+  console.log("logica");
+
   return <Cart productosAgregados={productosAgregados} />;
 };
 
-export default CartContainer;
+export { CartContainer };

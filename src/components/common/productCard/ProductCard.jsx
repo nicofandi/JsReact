@@ -1,14 +1,31 @@
 import React from "react";
 import "./ProductCard.css";
+import { Link } from "react-router-dom";
 
-const ProductCard = ({ titulo, descripcion, precio, imagenUrl }) => {
+const ProductCard = ({ title, description, price, img, id, onAddToCart }) => {
+  const handleClick = () => {
+    onAddToCart(id);
+  };
+
   return (
     <div className="card">
-      <img src={imagenUrl} alt={titulo} className="card-imagen" />
+      <img src={img} alt={title} className="card-imagen" />
       <div className="card-body">
-        <h3>{titulo}</h3>
-        <h4>{descripcion}</h4>
-        <h4>{precio}</h4>
+        <h2 className="card-title">{title}</h2>
+        <p className="card-description">{description}</p>
+        <p className="card-price">${price}</p>
+        <div className="card-buttons">
+          <Link to={`/itemDetail/${id}`}>
+              Ver detalle
+          </Link>
+          <button
+            className="btn btn-primary"
+            size="small"
+            onClick={handleClick}
+          >
+            Agregar al carrito
+          </button>
+        </div>
       </div>
     </div>
   );
